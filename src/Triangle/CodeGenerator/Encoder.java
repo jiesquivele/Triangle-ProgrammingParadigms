@@ -98,10 +98,44 @@ public final class Encoder implements Visitor {
   }
 
   public Object visitRunCommand(RunCommand ast, Object obj) {
+    Frame frame = (Frame) obj;
+    int times;
+
+    times = Integer.parseInt(ast.I.spelling);
+    for (int i = 0; i < times; i++) {
+      ast.C.visit(this, frame);
+    }
+
+    /*
+    jumpAddr = nextInstrAddr;
+    emit(Machine.JUMPop, 0, Machine.CBr, 0);
+    emit(Machine.LOADLop, 0, 0, Integer.parseInt(ast.I.spelling));
+    loopAddr = nextInstrAddr;
+    patch(jumpAddr, nextInstrAddr);
+    ast.C.visit(this, frame);
+    emit(Machine.CALLop, Machine.LBr, Machine.PBr, Machine.predDisplacement);
+    emit(Machine.JUMPIFop, Machine.trueRep, Machine.CBr, loopAddr);
+    */
     return null;
   }
 
   public Object visitChooseCommand(ChooseCommand ast, Object obj) {
+    Frame frame = (Frame) obj;
+    Integer x, y;
+
+    /*
+    Frame frame = (Frame) obj;
+    int times;
+    
+    x = ((Integer) ast.E1.visit(this, frame)).intValue();
+    y = ((Integer) ast.E2.visit(this, frame)).intValue();
+
+    if (x < y) {
+      encodeStore(ast.V, new Frame (frame, y.intValue()), y.intValue());
+    } else if (x > y) {
+      encodeStore(ast.V, new Frame (frame, x.intValue()), x.intValue());
+    }
+    */
     return null;
   }
 
